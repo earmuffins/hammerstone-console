@@ -411,10 +411,12 @@ function sendCommand()
         local command = consoleUI.input
 
         -- If an autofill option is selected, autofill instead of sending
+        -- TODO: Make this feel organic
+        --[[
         if autofillSelectedIndex ~= 0 then
             autofill(true)
             return
-        end
+        end]]
 
         consoleUI.input = ""
         setInputText("", true)
@@ -855,12 +857,15 @@ function autofill(refresh)
         end
     end
     
-    if refresh and autofillTabPressed then
+    --[[
+    if refresh and not autofillTabPressed then
         newCommand = newCommand .. " "
         autofillTabPressed = false
-    else
-        autofillTabPressed = true -- TODO: Weird stuff here to fix
     end
+
+    if not refresh then
+        autofillTabPressed = true
+    end]]
 
     consoleUI.input = newCommand
     setInputText(newCommand, false)
@@ -916,11 +921,11 @@ function consoleUI:printValues(columnWidth, ...)
     end
 
     if loaded then
-        sendLine("", line, nil, fontSize)
+        sendLine(consoleUI.console.margin, line, nil, fontSize)
     else
         table.insert(functionQueue, {
             func = sendLine,
-            args = { "", line, nil, fontSize }
+            args = { consoleUI.console.margin, line, nil, fontSize }
         })
     end
 end

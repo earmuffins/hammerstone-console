@@ -7,6 +7,7 @@
 -- Base
 local typeMaps = mjrequire "common/typeMaps"
 local resource = mjrequire "common/resource"
+local gameObject = mjrequire "common/gameObject"
 
 -- Math
 local lev = mjrequire "hammerstone-console/levenshtein"
@@ -220,7 +221,7 @@ function commands:load(console)
 
     -- Targets
 
-    console.addCommand(self, {"target", "targets"}, {}, function(c, params)
+    console.addCommand(self, {"targets"}, {}, function(c, params)
         c:newline()
         c:print("Selected Targets:")
         for i,object in ipairs(c.targets) do

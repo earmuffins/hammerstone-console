@@ -11,8 +11,6 @@ local uiManager = mjrequire "hammerstone/ui/uiManager"
 local consoleUI = mjrequire "hammerstone-console/consoleUI"
 local commands = mjrequire "hammerstone-console/commands"
 
-local gameObject = mjrequire "common/gameObject"
-
 local mjm = mjrequire "common/mjm"
 local vec4 = mjm.vec4
 
