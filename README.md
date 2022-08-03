@@ -4,6 +4,8 @@ Introduces a seamless in-game tool to interface with your mods.
 
 Please be aware that this project is likely to change as it gets polished.
 
+Suggestions and bug reports are appreciated. You can contact me on Discord at **earmuffs**#3820. Thanks!
+
 `Hammerstone Framework required.` View on
 [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2840825226) or
 [Github](https://github.com/SirLich/hammerstone-framework).
@@ -124,5 +126,32 @@ console:addCommand("resource spawn custom:object number:count", {
 end)
 ```
 
+### Targeting
+You can access the currently selected targets:
 
+```lua
+console.addCommand("targets", {}, function(c, params)
+    c:newline()
+    c:print("Selected Targets:")
+    for _,object in ipairs(c.targets) do
+        if object ~= nil then
+            local type = gameObject.types[object.objectTypeIndex]
+            --mj:log(" Object: ", object)
+            --mj:log(" Type: ", type)
+            if type.key == "sapien" then
+                -- If this is a Sapien
+                local state = object.sharedState
+                local gender = state.isFemale and "Female" or "Male"
+                c:printValues(12, state.name, gender)
+            else
+                -- If this is an object
+                c:printValues(12, type.name, "Stored: " .. tostring(object.stored))
+            end
+        else
+            c:error("No object selected.")
+        end
+    end
+    c:newline()
+end)
+```
 
